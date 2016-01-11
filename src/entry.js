@@ -3,12 +3,14 @@
  */
 
 import $ from 'jquery';
-import dt from 'datatables.net';
+import 'datatables.net';
 
+import 'bootstrap/dist/css/bootstrap.css';
 import 'datatables.net-bs/js/dataTables.bootstrap';
 import 'datatables.net-bs/css/dataTables.bootstrap.css';
 
-import 'bootstrap/dist/css/bootstrap.css';
+import 'datatables.net-fixedheader';
+import 'datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.css';
 
 import zh_cn from '../lib/zh_cn.json';
 
@@ -45,6 +47,39 @@ const App = ()=> {
       </tr>
       <tr>
         <td>1</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <strong>Fixed Header</strong>
+    <table className="table" ref={elem=>$(elem).DataTable({
+    fixedHeader:true
+    })}>
+      <thead>
+      <tr>
+        <td>
+          It will be fixed
+        </td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>2</td>
       </tr>
       </tbody>
     </table>

@@ -4,6 +4,7 @@
   "description": "Example for Datatable usage with React and Webpack",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server",
     "webpack": "rimraf dist && webpack"
   },
   "repository": {
@@ -25,6 +26,8 @@
     "css-loader": "^0.23.1",
     "datatables.net": "^1.10.10",
     "datatables.net-bs": "^1.10.10",
+    "datatables.net-fixedheader": "^3.1.0",
+    "datatables.net-fixedheader-bs": "^3.1.0",
     "file-loader": "^0.8.5",
     "history": "^1.17.0",
     "jquery": "^2.2.0",
@@ -33,6 +36,7 @@
     "rimraf": "^2.5.0",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.10",
+    "webpack-dev-server": "^1.14.0",
     "whatwg-fetch": "^0.10.1"
   }
 }
