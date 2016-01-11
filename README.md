@@ -74,6 +74,7 @@ import 'datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.css';
 ```
 
 1\. Load the extension script, normaly the entry file is defined in package.json `main` property ;
+
 2\. Load the style for specific front-end framework. For example, `bs` means `Bootstrap`.
 
 ### Actual usage
