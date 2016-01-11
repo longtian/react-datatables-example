@@ -80,3 +80,8 @@ import 'datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.css';
 ### Actual usage
 
 `$(elem).dataTable` or `$(elem).DataTable`
+
+### TODO
+
+* [ ] work with JSON data
+* [ ] Lifecycle
