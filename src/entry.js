@@ -5,8 +5,8 @@
 import $ from 'jquery';
 import dt from 'datatables.net';
 
-import '../lib/dataTables.bootstrap.js';
-import '../lib/dataTables.bootstrap.css';
+import 'datatables.net-bs/js/dataTables.bootstrap';
+import 'datatables.net-bs/css/dataTables.bootstrap.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
