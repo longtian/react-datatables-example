@@ -85,3 +85,5 @@ import 'datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.css';
 
 * [ ] work with JSON data
 * [ ] Lifecycle
+* [ ] Using React in column rendering
+* [ ] How to avoid conflicts between them
