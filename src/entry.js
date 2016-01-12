@@ -51,6 +51,21 @@ const App = ()=> {
       </tbody>
     </table>
 
+    <strong>JSON</strong>
+    <table className="table table-striped" ref={elem=>$(elem).DataTable({
+    data:[{
+      name:'1'
+    },{
+      name:'2'
+    }],
+    columns:[{
+    data:'name',
+    title:'Name'
+    }]
+    })}>
+
+    </table>
+
     <strong>Fixed Header</strong>
     <table className="table" ref={elem=>$(elem).DataTable({
     fixedHeader:true
