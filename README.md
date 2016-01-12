@@ -77,6 +77,34 @@ import 'datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.css';
 
 2\. Load the style for specific front-end framework. For example, `bs` means `Bootstrap`.
 
+### How to use template
+
+
+### How to use React components in cell rendering
+
+If we need to use the `react-toggle`` component in our application.
+
+We have two options:
+
+**Use render function**
+```
+column.render:elem=>renderToStaticMarkup(<Toggle/>)
+```
+
+**Use HTML markup**
+```html
+<tbody>
+{
+  DATA.map(e=><tr key={e.id}>
+    <td>{e.id}</td>
+    <td data-order={e.id}>{e.name}</td>
+    <td>{e.value}</td>
+    <td><Toggle/></td>
+  </tr>)
+}
+</tbody>
+```
+
 ### Actual usage
 
 `$(elem).dataTable` or `$(elem).DataTable`

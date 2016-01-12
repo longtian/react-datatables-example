@@ -1,6 +1,9 @@
 var path = require('path');
 module.exports = {
-  entry: path.join(__dirname, 'src', 'entry.js'),
+  entry: {
+    entry:path.join(__dirname, 'src', 'entry.js'),
+    toggle:path.join(__dirname, 'src', 'toggle.js'),
+  },
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/static/',

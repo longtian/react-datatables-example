@@ -33,6 +33,7 @@
     "jquery": "^2.2.0",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
+    "react-toggle": "^2.0.1",
     "rimraf": "^2.5.0",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.10",
