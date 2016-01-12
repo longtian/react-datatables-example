@@ -39,9 +39,26 @@ const APP = ()=> {
       },{
       title:'id',
       data:'value',
+      createdCell:(td,val)=>render(<Toggle/>,td)
+      }]
+    })}></table>
+
+    <table className="table" ref={elem=>$(elem).dataTable({
+      data: DATA,
+      columns:[{
+      title:'id',
+      data:'id'
+      },{
+      title:'name',
+      data:'name'
+      },{
+      title:'value',
+      data:'value'
+      },{
+      title:'id',
+      data:'value',
       render:elem=>renderToStaticMarkup(<Toggle/>)
       }]
-
     })}></table>
 
     <table className="table" ref={elem=>$(elem).dataTable()}>

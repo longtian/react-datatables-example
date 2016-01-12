@@ -84,11 +84,16 @@ import 'datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.css';
 
 If we need to use the `react-toggle`` component in our application.
 
-We have two options:
+We have three options:
 
-**Use render function**
+**Use render function and renderToStaticMarkup method**
 ```
 column.render:elem=>renderToStaticMarkup(<Toggle/>)
+```
+
+**Use createdCell function and create multiple React roots**
+```
+column.createdCell:(td,val)=>render(<Toggle/>,td)
 ```
 
 **Use HTML markup**
