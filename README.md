@@ -3,15 +3,13 @@ Example for Datatables usage with React and Webpack
 
 > This example will mainly focus on how to use Datatables and its extensions in React project instead of diving into the [fabulous API](http://www.datatables.net/reference/api/).
 
-## How to run this example
+**How to run this example**
 
 ```sh
 npm install && npm start
 ```
 
-Open your browser and navigate to http://localhost:8080/static/entry
-
-## Tips
+Open your browser and navigate to [http://localhost:8080/static/entry](http://localhost:8080/static/entry)
 
 ### How to import Datatables ?
 
@@ -20,9 +18,15 @@ import $ from 'jquery';
 import 'datatables.net';
 ```
 
-### Is it possible to use DataTable class directly ?
+After being imported, you can initialize a table DOM element normally
 
-No, because it is deeply coupled with jQuery
+`$(elem).dataTable(options)` or `$(elem).DataTable(options)`
+
+### Is it possible to use DataTable object directly ?
+
+No, because it is deeply coupled with jQuery, it requires jQuery context to intialize the table.
+
+In fact, the DataTable object is imported by default.
 
 ```js
 import $ from 'jquery';
@@ -37,10 +41,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'datatables.net-bs/js/dataTables.bootstrap';
 import 'datatables.net-bs/css/dataTables.bootstrap.css';
 ```
+Then, make sure you configure the `css-loader` and `style-loader` right in `webpack.config.js` file.
 
 ### How to load the i18n/fonts file asynchronously ?
 
-Extend the dataTable defaults object
+Extend the dataTable.defaults object
 
 ```js
 $.extend(true, $.fn.dataTable.defaults, {
@@ -77,26 +82,68 @@ import 'datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.css';
 
 2\. Load the style for specific front-end framework. For example, `bs` means `Bootstrap`.
 
-### How to use template
+### How to use string templates
 
+[ES6 template](https://github.com/esnext/es6-templates) is a good choice
+
+Data:
+
+```js
+[
+  {
+    name:'1',
+    foo:{
+      bar:1
+    }
+  }
+  ...
+]
+```
+
+Columns:
+
+```js
+[
+  {
+    data:'foo',
+    title:'foo.bar',
+    render:foo=>`<em>${foo.bar}</em>`
+  }
+  ...
+}
+```
 
 ### How to use React components in cell rendering
 
-If we need to use the `react-toggle`` component in our application.
+Let's assume we need to use the `react-toggle` component in our table.
 
-We have three options:
+We have three ways to use it:
 
-**Use render function and renderToStaticMarkup method**
-```
-column.render:elem=>renderToStaticMarkup(<Toggle/>)
+**Implement render function and use React DOM server's renderToStaticMarkup method**
+
+```js
+{
+  columns:[{
+    ...
+    render:elem=>renderToStaticMarkup(<Toggle/>)
+  }]
+  ...
+}
 ```
 
 **Implement datatable createdCell function and create multiple React roots**
-```
-column.createdCell:(td,val)=>render(<Toggle/>,td)
+
+```js
+{
+  columns:[{
+    ...
+    createdCell:(td,val)=>render(<Toggle/>,td)
+  }]
+  ...
+}
 ```
 
-**Use HTML markup**
+**Prepare the HTML markup first and then initialize the Datatable**
 ```html
 <tbody>
 {
@@ -110,13 +157,15 @@ column.createdCell:(td,val)=>render(<Toggle/>,td)
 </tbody>
 ```
 
-Here is the performance report with 5000 data in table comparing above three options.
+A performance test page is written to show the difference between these ways
 
-http://localhost:8080/static/toggle
+[http://localhost:8080/static/toggle](http://localhost:8080/static/toggle)
 
 ![performance](assets/test_performance.png)
 
-|Option                     |Duration             | usedJSHeapSize   |
+And here is the performance report with 5000 data in table comparing above three options.
+
+|Option                     | Duration            | usedJSHeapSize   |
 |---------------------------|---------------------|------------------|
 |  renderToStaticMarkup     |  6661.586ms         | 29.75M           |
 |  render                   |  4557.174ms         | 103.95M          |
@@ -128,14 +177,11 @@ Summary:
 * If your component has state, but has no dependency in its context, use `render`
 * If your component has state or has dependency in its context (e.g Redux Componet or React Router Links), use `markup`
 
-### Actual usage
-
-`$(elem).dataTable` or `$(elem).DataTable`
 
 ### TODO
 
-* [ ] work with JSON data
+* [x] work with JSON data
 * [ ] Lifecycle
-* [ ] Using React in column rendering
+* [x] Using React in column rendering
 * [ ] How to avoid conflicts between them
-* [ ] Work with react-dom/server
+* [x] Work with react-dom/server

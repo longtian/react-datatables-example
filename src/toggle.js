@@ -98,9 +98,9 @@ const APP_markup = ()=> {
 
 const Wrapper = props=> {
   return <div>
-    <a href="?app=APP_renderToStaticMarkup">APP_renderToStaticMarkup</a> |
-    <a href="?app=APP_render">APP_render</a> |
-    <a href="?app=APP_markup">APP_markup</a>
+    <a href="?app=APP_renderToStaticMarkup&count=5000">APP_renderToStaticMarkup</a> |
+    <a href="?app=APP_render&count=5000">APP_render</a> |
+    <a href="?app=APP_markup&count=5000">APP_markup</a>
     {props.children}
   </div>
 }

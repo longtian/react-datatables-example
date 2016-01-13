@@ -54,13 +54,28 @@ const App = ()=> {
     <strong>JSON</strong>
     <table className="table table-striped" ref={elem=>$(elem).DataTable({
     data:[{
-      name:'1'
+      name:'1',
+      foo:{
+        bar:1
+      }
     },{
-      name:'2'
+      name:'2',
+      foo:{
+        bar:2
+      }
     }],
     columns:[{
     data:'name',
     title:'Name'
+    },
+    {
+    data:'foo.bar',
+    title:'foo.bar'
+    },
+    {
+    data:'foo',
+    title:'foo',
+    render:foo=>`<em>${foo.bar}</em>`
     }]
     })}>
 
