@@ -167,9 +167,9 @@ And here is the performance report with 5000 data in table comparing above three
 
 |Option                     | Duration            | usedJSHeapSize   |
 |---------------------------|---------------------|------------------|
-|  renderToStaticMarkup     |  6661.586ms         | 29.75M           |
-|  render                   |  4557.174ms         | 103.95M          |
-|  markup                   |  6846.774ms         | 189.78M          |
+|  renderToStaticMarkup     |  6384.74ms          | 29.75M           |
+|  render                   |  4579.46ms          | 103.95M          |
+|  markup                   |  6497.95ms          | 189.78M          |
 
 Summary:
 
