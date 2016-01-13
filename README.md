@@ -9,7 +9,7 @@ Example for Datatables usage with React and Webpack
 npm install && npm start
 ```
 
-Open your browser and navigate to http://localhost:8080/static/main
+Open your browser and navigate to http://localhost:8080/static/entry
 
 ## Tips
 
@@ -91,7 +91,7 @@ We have three options:
 column.render:elem=>renderToStaticMarkup(<Toggle/>)
 ```
 
-**Use createdCell function and create multiple React roots**
+**Implement datatable createdCell function and create multiple React roots**
 ```
 column.createdCell:(td,val)=>render(<Toggle/>,td)
 ```
@@ -109,6 +109,24 @@ column.createdCell:(td,val)=>render(<Toggle/>,td)
 }
 </tbody>
 ```
+
+Here is the performance report with 5000 data in table comparing above three options.
+
+http://localhost:8080/static/toggle
+
+![performance](assets/test_performance.png)
+
+|Option                     |Duration             | usedJSHeapSize   |
+|---------------------------|---------------------|------------------|
+|  renderToStaticMarkup     |  6661.586ms         | 29.75M           |
+|  render                   |  4557.174ms         | 103.95M          |
+|  markup                   |  6846.774ms         | 189.78M          |
+
+Summary:
+
+* If your component is dummy(e.g stateless funtion), use `renderToStaticMarkup`
+* If your component has state, but has no dependency in its context, use `render`
+* If your component has state or has dependency in its context (e.g Redux Componet or React Router Links), use `markup`
 
 ### Actual usage
 

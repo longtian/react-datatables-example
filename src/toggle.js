@@ -12,9 +12,17 @@ import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 import {renderToStaticMarkup}from 'react-dom/server';
 
-const DATA = [];
+let domElement = document.createElement('div');
+document.body.appendChild(domElement);
 
-for (var i = 1; i <= 500; i++) {
+let {
+  app='APP_render',
+  count=5000
+  } = require('qs').parse(location.search.slice(1));
+
+let DATA = [];
+
+for (var i = 1; i <= count; i++) {
   DATA.push({
     id: i,
     name: 'item-' + i,
@@ -22,68 +30,84 @@ for (var i = 1; i <= 500; i++) {
   })
 }
 
-const APP = ()=> {
+const APP_renderToStaticMarkup = ()=> {
+  let opts = {
+    data: DATA,
+    columns: [{
+      title: 'id',
+      data: 'id'
+    }, {
+      title: 'name',
+      data: 'name'
+    }, {
+      title: 'value',
+      data: 'value'
+    }, {
+      title: 'id',
+      data: 'value',
+      render: elem=>renderToStaticMarkup(<Toggle/>)
+    }]
+  }
+  return <table className="table" ref={elem=>$(elem).dataTable(opts)}></table>
+}
+
+const APP_render = ()=> {
+  let opts = {
+    data: DATA,
+    columns: [{
+      title: 'id',
+      data: 'id'
+    }, {
+      title: 'name',
+      data: 'name'
+    }, {
+      title: 'value',
+      data: 'value'
+    }, {
+      title: 'id',
+      data: 'value',
+      createdCell: (td, val)=>render(<Toggle/>, td)
+    }]
+  }
+  return <table className="table" ref={elem=>$(elem).dataTable(opts)}></table>
+}
+
+const APP_markup = ()=> {
+  return <table className="table" ref={elem=>$(elem).dataTable()}>
+    <thead>
+    <tr>
+      <th >id</th>
+      <th data-sortable={false}>name</th>
+      <th>value</th>
+      <th>-</th>
+    </tr>
+    </thead>
+    <tbody>
+    {
+      DATA.map(e=><tr key={e.id}>
+        <td>{e.id}</td>
+        <td data-order={e.id}>{e.name}</td>
+        <td>{e.value}</td>
+        <td><Toggle/></td>
+      </tr>)
+    }
+    </tbody>
+  </table>
+}
+
+
+const Wrapper = props=> {
   return <div>
-
-    <table className="table" ref={elem=>$(elem).dataTable({
-      data: DATA,
-      columns:[{
-      title:'id',
-      data:'id'
-      },{
-      title:'name',
-      data:'name'
-      },{
-      title:'value',
-      data:'value'
-      },{
-      title:'id',
-      data:'value',
-      createdCell:(td,val)=>render(<Toggle/>,td)
-      }]
-    })}></table>
-
-    <table className="table" ref={elem=>$(elem).dataTable({
-      data: DATA,
-      columns:[{
-      title:'id',
-      data:'id'
-      },{
-      title:'name',
-      data:'name'
-      },{
-      title:'value',
-      data:'value'
-      },{
-      title:'id',
-      data:'value',
-      render:elem=>renderToStaticMarkup(<Toggle/>)
-      }]
-    })}></table>
-
-    <table className="table" ref={elem=>$(elem).dataTable()}>
-      <thead>
-      <tr>
-        <th >id</th>
-        <th data-sortable={false}>name</th>
-        <th>value</th>
-        <th>-</th>
-      </tr>
-      </thead>
-      <tbody>
-      {
-        DATA.map(e=><tr key={e.id}>
-          <td>{e.id}</td>
-          <td data-order={e.id}>{e.name}</td>
-          <td>{e.value}</td>
-          <td><Toggle/></td>
-        </tr>)
-      }
-      </tbody>
-    </table>
+    <a href="?app=APP_renderToStaticMarkup">APP_renderToStaticMarkup</a> |
+    <a href="?app=APP_render">APP_render</a> |
+    <a href="?app=APP_markup">APP_markup</a>
+    {props.children}
   </div>
 }
 
-var elem = document.createElement('div');
-document.body.appendChild(elem);
-render(<APP/>, elem);
+console.time(app);
+var reactElement = React.createElement(Wrapper, null, React.createElement(eval(app)));
+render(reactElement, domElement);
+console.timeEnd(app);
+
+console.log(console.memory.usedJSHeapSize / 1024 / 1024);
